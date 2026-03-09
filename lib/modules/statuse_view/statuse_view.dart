@@ -310,7 +310,7 @@ class _StatusViewPageState extends State<StatusViewPage> {
 
       if (!deleted && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('فشل الحذف من السيرفر'), backgroundColor: Colors.red),
+          const SnackBar(content: Text('  حدث خطأأثناءالحذف الحالة '), backgroundColor: Colors.red),
         );
         return;
       }

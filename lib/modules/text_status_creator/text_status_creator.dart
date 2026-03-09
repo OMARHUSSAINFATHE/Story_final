@@ -2,51 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import '../story_model/story_model.dart';
 
-// =====================================================
-// STATUS MODEL
-// =====================================================
-class StatusModel {
-  final String type;
-  final String content;
-  final String? fileUrl;
-  final String? fileName;
-  final String visibility;
-  final String expiresAt;
-  final Map<String, dynamic> user;
-  final int id;
-  final String createdAt;
-  final String updatedAt;
-  
-
-  StatusModel({
-    required this.type,
-    required this.content,
-    this.fileUrl,
-    this.fileName,
-    required this.visibility,
-    required this.expiresAt,
-    required this.user,
-    required this.id,
-    required this.createdAt,
-    required this.updatedAt,
-  });
-
-  factory StatusModel.fromJson(Map<String, dynamic> json) {
-    return StatusModel(
-      type: json['type'] ?? 'TEXT',
-      content: json['content'] ?? '',
-      fileUrl: json['fileUrl'],
-      fileName: json['fileName'],
-      visibility: json['visibility'] ?? 'FRIENDS',
-      expiresAt: json['expiresAt'] ?? '',
-      user: json['user'] ?? {},
-      id: json['id'] ?? 0,
-      createdAt: json['createdAt'] ?? '',
-      updatedAt: json['updatedAt'] ?? '',
-    );
-  }
-}
 
 // =====================================================
 // STATUS SERVICE - API Calls
@@ -174,7 +131,7 @@ class _TextStatusCreatorState extends State<TextStatusCreator> {
   final Map<String, String> _visibilityOptions = {
     'FRIENDS': 'الأصدقاء',
     'PUBLIC': 'الجميع',
-    'ONLY_ME': 'أنا فقط',
+    
   };
 
   Future<void> _publishStatus() async {
@@ -198,7 +155,7 @@ class _TextStatusCreatorState extends State<TextStatusCreator> {
     if (result != null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('تم نشر الحالة بنجاح! ID: ${result.id}'),
+          content: Text('تم نشر الحالة بنجاح! '),
           backgroundColor: Colors.green,
         ),
       );

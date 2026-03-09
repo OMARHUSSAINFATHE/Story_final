@@ -33,7 +33,6 @@ class _MediaStatusCreatorState extends State<MediaStatusCreator> {
   final Map<String, String> _visibilityOptions = {
     'FRIENDS': 'الأصدقاء',
     'PUBLIC': 'الجميع',
-    'ONLY_ME': 'أنا فقط',
   };
 
   @override
@@ -193,7 +192,6 @@ class _MediaStatusCreatorState extends State<MediaStatusCreator> {
           icon: const Icon(Icons.close, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text('حالة جديدة', style: TextStyle(color: Colors.white)),
         actions: [
           PopupMenuButton<String>(
             initialValue: _selectedVisibility,
@@ -259,27 +257,7 @@ class _MediaStatusCreatorState extends State<MediaStatusCreator> {
                   : _buildVideoPreview(),
           ),
           if (_selectedFile != null && !_isCompressing) ...[
-            Container(
-              color: Colors.grey[900],
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Row(
-                children: [
-                  const Icon(Icons.edit, color: Colors.white54, size: 20),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: TextField(
-                      controller: _captionController,
-                      style: const TextStyle(color: Colors.white),
-                      decoration: const InputDecoration(
-                        hintText: 'أضف تعليق (اختياري)...',
-                        hintStyle: TextStyle(color: Colors.white38),
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+           
             Container(
               color: Colors.grey[900],
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

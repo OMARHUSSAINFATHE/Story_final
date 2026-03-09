@@ -7,6 +7,7 @@
       "name": "story_app",
       "version": "1.0.0+1",
       "dependencies": [
+        "bloc",
         "cached_network_image",
         "cupertino_icons",
         "dio",
@@ -55,6 +56,13 @@
         "stream_channel",
         "test_api",
         "vector_math"
+      ]
+    },
+    {
+      "name": "bloc",
+      "version": "9.2.0",
+      "dependencies": [
+        "meta"
       ]
     },
     {
