@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
 import 'package:video_compress/video_compress.dart';
-import '../text_status_creator/text_status_creator.dart';
+import '../status_service/status_service.dart';
+
 
 class MediaStatusCreator extends StatefulWidget {
   final ImageSource source;
