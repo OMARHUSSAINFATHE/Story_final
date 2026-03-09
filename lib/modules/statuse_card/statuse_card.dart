@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
@@ -92,7 +93,7 @@ class _StatusCardState extends State<StatusCard> {
 
   Widget _buildImage() {
     final url = widget.storyModel.imageUrl;
-
+    log("imageUrl $url");
     /// 🎥 لو فيديو
     if (url.toLowerCase().endsWith('.mp4')) {
       return FutureBuilder<Uint8List?>(
