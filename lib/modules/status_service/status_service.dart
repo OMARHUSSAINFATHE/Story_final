@@ -10,8 +10,7 @@ import '../story_model/story_model.dart';
 class StatusService {
   static const String baseUrl = 'https://back.ibond.ai/v1';
   static const String _token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDgsImVtYWlsIjoiaGFueUBnbWFpbC5jb20iLCJpYXQiOjE3NzMwNTg4MjMsImV4cCI6MTc3NTY1MDgyM30.kEME5b5H-sumt-MppGWh4TuEN2yYUIpOwW96ZVvfycg';
-
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDgsImVtYWlsIjoiaGFueUBnbWFpbC5jb20iLCJpYXQiOjE3NzMxNDUwNDQsImV4cCI6MTc3NTczNzA0NH0.YWyA66-RJF9riBcEE0myADTimrqBr2mQZ7sYD6jzxY0";
   static String get token => _token;
 
   /// Create TEXT status
