@@ -7,11 +7,13 @@ import '../story_model/story_model.dart';
 // =====================================================
 // STATUS SERVICE - API Calls
 // =====================================================
+
+
 class StatusService {
   static const String baseUrl = 'https://back.ibond.ai/v1';
-  static const String _token =
+  static const String _token = 
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDgsImVtYWlsIjoiaGFueUBnbWFpbC5jb20iLCJpYXQiOjE3NzMxNDUwNDQsImV4cCI6MTc3NTczNzA0NH0.YWyA66-RJF9riBcEE0myADTimrqBr2mQZ7sYD6jzxY0";
-  static String get token => _token;
+  static String get token => _token; // ✅ عشان نقدر نستخدمه من برا
 
   /// Create TEXT status
   static Future<StatusModel?> createTextStatus({
@@ -19,7 +21,10 @@ class StatusService {
     required String visibility,
   }) async {
     try {
-      var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/status'));
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse('$baseUrl/status'),
+      );
 
       request.headers['Authorization'] = 'Bearer $_token';
       request.fields['visibility'] = visibility;
@@ -32,9 +37,7 @@ class StatusService {
       if (response.statusCode == 201) {
         return StatusModel.fromJson(jsonDecode(response.body));
       } else {
-        debugPrint(
-          'Text status failed: ${response.statusCode} - ${response.body}',
-        );
+        debugPrint('Text status failed: ${response.statusCode} - ${response.body}');
         return null;
       }
     } catch (e) {
@@ -66,7 +69,10 @@ class StatusService {
     required File statusFile,
   }) async {
     try {
-      var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/status'));
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse('$baseUrl/status'),
+      );
 
       request.headers['Authorization'] = 'Bearer $_token';
       request.fields['visibility'] = visibility;
@@ -80,16 +86,14 @@ class StatusService {
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
 
-      debugPrint('=== FILE STATUS ===');
+      debugPrint('=== FILE STATUS ===');  
       debugPrint('Code: ${response.statusCode}');
       debugPrint('Body: ${response.body}');
 
       if (response.statusCode == 201) {
         return StatusModel.fromJson(jsonDecode(response.body));
       } else {
-        debugPrint(
-          'File status failed: ${response.statusCode} - ${response.body}',
-        );
+        debugPrint('File status failed: ${response.statusCode} - ${response.body}');
         return null;
       }
     } catch (e) {
