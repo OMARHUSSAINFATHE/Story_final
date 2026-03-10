@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
@@ -93,8 +92,64 @@ class _StatusCardState extends State<StatusCard> {
 
   Widget _buildImage() {
     final url = widget.storyModel.imageUrl;
-    log("imageUrl $url");
-    /// 🎥 لو فيديو
+
+    // ✅ video: prefix
+    if (url.startsWith('video:')) {
+      final videoUrl = url.replaceFirst('video:', '');
+      if (videoUrl.startsWith('http')) {
+        return Container(
+          color: Colors.grey.shade900,
+          child: const Center(
+            child: Icon(Icons.play_circle_fill, color: Colors.white70, size: 48),
+          ),
+        );
+      }
+      return FutureBuilder<Uint8List?>(
+        future: VideoThumbnail.thumbnailData(
+          video: videoUrl,
+          imageFormat: ImageFormat.JPEG,
+          quality: 75,
+        ),
+        builder: (context, snapshot) {
+          if (snapshot.hasData && snapshot.data != null) {
+            return Stack(fit: StackFit.expand, children: [
+              Image.memory(snapshot.data!, fit: BoxFit.cover),
+              const Center(
+                child: Icon(Icons.play_circle_fill, color: Colors.white70, size: 40),
+              ),
+            ]);
+          }
+          return Container(
+            color: Colors.grey.shade900,
+            child: const Center(
+              child: Icon(Icons.play_circle_fill, color: Colors.white70, size: 48),
+            ),
+          );
+        },
+      );
+    }
+
+    // ✅ text: prefix
+    if (url.startsWith('text:')) {
+      final text = url.replaceFirst('text:', '').split('|color:').first;
+      return Container(
+        color: const Color(0xFF128C7E),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Text(text,
+              textAlign: TextAlign.center,
+              maxLines: 5,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                color: Colors.white, fontSize: 13, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+      );
+    }
+
+    /// 🎥 فيديو بامتداد .mp4
     if (url.toLowerCase().endsWith('.mp4')) {
       return FutureBuilder<Uint8List?>(
         future: VideoThumbnail.thumbnailData(
@@ -103,25 +158,14 @@ class _StatusCardState extends State<StatusCard> {
           quality: 75,
         ),
         builder: (context, snapshot) {
-          if (snapshot.connectionState ==
-              ConnectionState.waiting) {
-            return const Center(
-                child: CircularProgressIndicator());
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
           }
-
           if (snapshot.hasData && snapshot.data != null) {
-            return Stack(
-              fit: StackFit.expand,
-              children: [
-                Image.memory(
-                  snapshot.data!,
-                  fit: BoxFit.cover,
-                ),
-                
-              ],
-            );
+            return Stack(fit: StackFit.expand, children: [
+              Image.memory(snapshot.data!, fit: BoxFit.cover),
+            ]);
           }
-
           return _placeholder();
         },
       );
@@ -144,7 +188,7 @@ class _StatusCardState extends State<StatusCard> {
         fit: BoxFit.cover,
         placeholder: (context, _) =>
             const Center(child: CircularProgressIndicator()),
-        errorWidget: (context, _, _) => _placeholder(),
+        errorWidget: (context, _, __) => _placeholder(),
       );
     }
 
@@ -152,8 +196,7 @@ class _StatusCardState extends State<StatusCard> {
     return Image.asset(
       url,
       fit: BoxFit.cover,
-      errorBuilder: (context, error, stackTrace) =>
-          _placeholder(),
+      errorBuilder: (context, error, stackTrace) => _placeholder(),
     );
   }
 
