@@ -1,13 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
-
-import 'package:story_app/modules/status_privacy/status_privacy.dart';
 import 'package:story_app/modules/statuse_card/statuse_card.dart';
 import 'package:story_app/modules/statuse_view/statuse_view.dart';
 import 'package:story_app/modules/story_model/story_model.dart';
@@ -365,6 +361,8 @@ class _StatusPageState extends State<StatusPage> {
     );
   }
 
+
+  ///Status friends
   List<Map<String, dynamic>> _getDemoFriends() => [
     {
       'id': 'friend_1',
@@ -410,24 +408,7 @@ class _StatusPageState extends State<StatusPage> {
       appBar: AppBar(
         title: const Text('Status'),
         elevation: 0,
-        actions: [
-          PopupMenuButton<String>(
-            onSelected: (value) {
-              if (value == 'Status Privacy') {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => StatusPrivacy()),
-                );
-              }
-            },
-            itemBuilder: (_) => const [
-              PopupMenuItem(
-                value: 'Status Privacy',
-                child: Text('Status Privacy'),
-              ),
-            ],
-          ),
-        ],
+      
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _showAddStatusOptions,
